@@ -10,8 +10,6 @@ function  Create(){
 
     function handleSubmit(event) {
         event.preventDefault()
-
-   
        api.post('http://localhost:3002/tarefas', input)
        .then(res => {navigat('/')}).catch(err => console.log(err))
     }

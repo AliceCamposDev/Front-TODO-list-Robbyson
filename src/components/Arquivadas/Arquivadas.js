@@ -6,14 +6,18 @@ import api from "../../services/api"
 function Arquivadas({input}){ 
 
     const [records, setRecords] = useState([])
-    
+    const [results, setResults] = useState([])  
+    const [tarefas, setTarefas] = useState([])
 
     useEffect(()=>{
       api.get('tarefas')
       .then(res => {
         setRecords (res.data)
+        
       },[])
     })
+
+    
 
     function formatDate(date){
         const dateCropped = date?.split("T")[0]
@@ -30,26 +34,44 @@ function Arquivadas({input}){
       }
 
       function search (data, input){
+        const tarefas = data.slice().filter((tarefa) => {
+          return (
+            input &&
+            tarefa&&
+            tarefa.description &&
+            tarefa.description.toLowerCase().startsWith(input)
+          )
+          })
+        const results = tarefas
 
-    
-            function findIndx (element) {
-                if (element.description.toLowerCase().startsWith(input.toLowerCase()))
-                return true
-            }
-        //let  idx  = data?.indexOf(findIndx)
-        //console.log ("idx" + idx)
+        console.log(tarefas)
+     
+        //console.log("input " + input)
+       //console.log("tarefas " + tarefas)
+        //console.log("results " + results)
 
-        console.log("data = "+ data)
-        console.log("posição = " + data?.findIndex(findIndx))
-        console.log("input = " + input)
-        console.log("desc  = " + data[1]?.description)
 
-        return "asdasd"
+       /*function filtro (){
+
+       (tarefas.filter((tarefa) => {
+        return (
+          input &&
+          tarefa&&
+          tarefa.description &&
+          tarefa.description.toLowerCase().includes(input)
+        )
+        }))
+      } */
+      //setResults ()
+        return tarefas
       }
+
+      
+    
     return (
         <div>
         <h1>{input}</h1>
-        <h2>{search(records, input)}</h2>
+        <h2>{}   a</h2>
         <table>
         <thead>
              <tr>
@@ -58,7 +80,7 @@ function Arquivadas({input}){
         </thead>
         <tbody>
           {
-            records.map ((d ,i) => ( 
+            search(records, input).map ((d ,i) => ( 
               <tr key = {i} hidden={!d.hide}>
                 <td>{d.description}</td>
                 <td>{formatDate(d.duedate)}</td>
