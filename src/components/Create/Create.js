@@ -2,6 +2,7 @@ import React from "react";
 import api from "../../services/api";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function  Create(){
 
@@ -16,17 +17,18 @@ function  Create(){
     return(
         <div>
             <form onSubmit={handleSubmit}> 
-                <label htmlFor="nome" >Nome:</label>
-                <input type="text" name="nome" required
+                <label htmlFor="description" >Descrição:</label>
+                <input type="text" name="description" required
                 onChange  = {e => setInput({...input,description: e.target.value})}/>
 
                
 
-                <label htmlFor="data">Data:</label>
-                <input type="date" name="data" required
+                <label htmlFor="dueDate">Data de Conlusão:</label>
+                <input type="date" name="dueDate" required
                 onChange  = {e => setInput({...input,duedate: e.target.value})}/>
                 <button type="submit">enviar</button>
             </form>
+            <button><Link to={`/`} >Cancelar</Link></button>
         </div>
     )
 }
