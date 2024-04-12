@@ -4,32 +4,24 @@ import { Link } from "react-router-dom"
 import Lista from "../Lista/Lista"
 import "./Quadro.css"
 
-function Quadro(){
+function Quadro() {
 
-    const [input, setInput] = useState ('')
-    const [arquivado,setArquivado]=useState(false)
+  const [input, setInput] = useState('')
+  const [arquivado, setArquivado] = useState(false)
 
-    function archivedOrNot(archived){
-      if (archived){
-        return "Voltar"
-      }else{
-        return "Arquivadas"
-      }
-    }
-  
-return (
-  <div className="container">
-    <h1>Tarefas</h1>
+  return (
+    <div className="container">
+      <h1>Tarefas</h1>
       <div className="pesquisa">
-        <input type="text" value={input} onChange={(e) => setInput(e.target.value)}/>
+        <input type="text" value={input} onChange={(e) => setInput(e.target.value)} />
+        <button onClick={() => setInput("")}>Limpar</button>
         <Link to="/create"><button>Adicionar</button></Link>
-        <button onClick={()=>setArquivado(!arquivado)}>{archivedOrNot(arquivado)}</button>
+        <button onClick={() => setArquivado(!arquivado)}>{arquivado? "Voltar":"Arquivados"}</button>
       </div>
       <div className="listaDiv">
-        <Lista input={input} arquivado={arquivado}/> 
+        <Lista input={input} arquivado={arquivado} />
       </div>
-  </div>
-)
-
+    </div>
+  )
 }
 export default Quadro
