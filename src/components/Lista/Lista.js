@@ -70,7 +70,7 @@ function Lista({ input, arquivado }) {
         <tbody>
           {
           search(records, input, arquivado).map((d, i) => (
-            <tr className="rowLista">
+            <tr className="rowLista" key={i}>
               <td>{d.description}</td>
               <td className="tdData">{formatDate(d.duedate)}</td>
               <td>{d.done}</td>
