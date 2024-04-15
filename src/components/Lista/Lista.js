@@ -2,6 +2,8 @@ import React from "react"
 import { useEffect, useState } from 'react'
 import { Link } from "react-router-dom"
 import api from "../../services/api"
+import "./Lista.css"
+import "../../app.css"
 
 
 function Lista({ input, arquivado }) {
@@ -10,15 +12,15 @@ function Lista({ input, arquivado }) {
   const [dbReturn, setDbReturn] = useState(null)
 
   useEffect(() => {
-    api.get('tarefas')
+     api.get('tarefas')
       .then(res => {
         setRecords(res.data)
       })
   }, [dbReturn])
 
-  function deletarItem(id, descricao) {
+   function deletarItem(id, descricao) {
     if (window.confirm("Tem certeza que deseja deletar \"" + descricao + "\"?")) {
-      api.delete("/tarefas/" + id)
+      setDbReturn( api.delete("/tarefas/" + id))
     }
   }
 
@@ -63,19 +65,19 @@ function Lista({ input, arquivado }) {
   }
 
   return (
-    <div>
-      <table>
+    <div className="listaContainer">
+      <table className="tableLista">
         <tbody>
           {
           search(records, input, arquivado).map((d, i) => (
-            <tr key={i} >
+            <tr className="rowLista">
               <td>{d.description}</td>
-              <td>{formatDate(d.duedate)}</td>
+              <td className="tdData">{formatDate(d.duedate)}</td>
               <td>{d.done}</td>
-              <td><button onClick={() => completeTask(d)} hidden={d.hide}>{(d.done ? "V" : "X")}</button></td>
-              <td><Link to={`update/${d._id}`} hidden={d.hide}><button>editar</button></Link></td>
-              <td><button onClick={(() => deletarItem(d._id, d.description))} >deletar</button></td>
-              <td><button onClick={() => archiveTask(d)} hidden={!d.done}>{d.hide ? "Desarquivar" : "Arquivar"}</button></td>
+              <td><Link to={`update/${d._id}`} hidden={d.hide}><button>✎</button></Link></td>
+              <td><button onClick={(() => deletarItem(d._id, d.description))} >🗑</button></td>
+              <td><button onClick={() => completeTask(d)} hidden={d.hide}>{(d.done ? "✓" : " ")}</button></td>
+              <td className="tdArquivDesarquiv"><button className="btnArquivDesarquiv" onClick={() => archiveTask(d)} hidden={!d.done}>{d.hide ? "←🗀" : "→🗀"}</button></td>
             </tr>
             ))
           }

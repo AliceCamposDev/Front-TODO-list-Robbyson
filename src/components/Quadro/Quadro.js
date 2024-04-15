@@ -3,6 +3,7 @@ import { useState } from "react"
 import { Link } from "react-router-dom"
 import Lista from "../Lista/Lista"
 import "./Quadro.css"
+import "../../app.css"
 
 function Quadro() {
 
@@ -11,12 +12,16 @@ function Quadro() {
 
   return (
     <div className="container">
-      <h1>Tarefas</h1>
+      <h1 className="titulo">Tarefas</h1>
       <div className="pesquisa">
-        <input type="text" value={input} onChange={(e) => setInput(e.target.value)} />
-        <button onClick={() => setInput("")}>Limpar</button>
-        <Link to="/create"><button>Adicionar</button></Link>
-        <button onClick={() => setArquivado(!arquivado)}>{arquivado? "Voltar":"Arquivados"}</button>
+        <div className="barraPesquisa">
+          <input className= "inputPesquisar" type="text" value={input} onChange={(e) => setInput(e.target.value)} />
+          <button className="btnLimpar" onClick={() => setInput("")}>Limpar</button>
+        </div>
+        <div className="botoesQuadro">
+          <Link to="/create"><button className="btnAdicionar">+</button></Link>
+          <button className="btnArquivado" onClick={() => setArquivado(!arquivado)}>{arquivado? "⮠ ":"🗀"}</button>
+        </div>
       </div>
       <div className="listaDiv">
         <Lista input={input} arquivado={arquivado} />

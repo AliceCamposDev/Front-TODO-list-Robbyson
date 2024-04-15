@@ -3,6 +3,8 @@ import api from "../../services/api";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import "./Create.css"
+import "../../app.css"
 
 function Create() {
 
@@ -15,18 +17,21 @@ function Create() {
         .then(res => { navigat('/') }).catch(err => console.log(err))
     }
     return (
-        <div>
+        <div className="createContainer">
             <form onSubmit={handleSubmit}>
-
-                <label htmlFor="description" >Descrição:</label>
-                <input type="text" name="description" required onChange={e => setInput({ ...input, description: e.target.value })} />
-
-                <label htmlFor="dueDate">Data de Conlusão:</label>
-                <input type="date" name="dueDate" required onChange={e => setInput({ ...input, duedate: e.target.value })} />
-
-                <button type="submit">Salvar</button>
+                <div className="descricao">
+                    <label htmlFor="description" >Descrição:</label>
+                    <input type="text" name="description" required onChange={e => setInput({ ...input, description: e.target.value })} />
+                </div>
+                <div className="data">
+                    <label htmlFor="dueDate">Data de Conlusão:</label>
+                    <input type="date" name="dueDate" required onChange={e => setInput({ ...input, duedate: e.target.value })} />
+                </div>
+                <div className="botoes">
+                    <button type="submit">Salvar</button>
+                    <button><Link to={`/`} >Cancelar</Link></button>
+                </div>
             </form>
-            <button><Link to={`/`} >Cancelar</Link></button>
         </div>
     )
 }
